@@ -27,10 +27,6 @@ const API_KEY = 'sk-or-v1-34ecacf256d21489aace3f5fce5b999822bb58f7890e366a13add9
 // =====================================================
 const MODELS = [
     'qwen/qwen3-coder:free',
-    'mistralai/mistral-7b-instruct:free',
-    'huggingfaceh4/zephyr-7b-beta:free',
-    'google/gemma-2-9b-it:free',
-    'microsoft/phi-3-mini-128k-instruct:free'
 ];
 
 // Store chat history
