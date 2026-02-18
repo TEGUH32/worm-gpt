@@ -22,7 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // =====================================================
 const API_KEYS = [
     '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', // Key lo
-    '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', // Duplicate untuk testing
+    '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', // Duplicate untuk testing
     // Tambahin key lain kalo punya
 ];
 
