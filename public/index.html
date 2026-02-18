@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI ILLEGAL - Chat</title>
     <style>
+        /* (CSS sama seperti sebelumnya) */
         * {
             margin: 0;
             padding: 0;
@@ -229,6 +230,19 @@
             border-radius: 8px;
             border: 1px solid #f5c6cb;
             display: none;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        
+        .debug-info {
+            background: #e2e3e5;
+            color: #383d41;
+            padding: 8px 15px;
+            margin: 5px 20px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-family: monospace;
+            display: none;
         }
         
         @media (max-width: 768px) {
@@ -248,30 +262,30 @@
 </head>
 <body>
     <div class="header">
-        <h1>🔥 AI ILLEGAL</h1>
-        <p>Unrestricted • No Limits • Dark Web Edition</p>
+        <h1>🔥 AI ILLEGAL V3</h1>
+        <p>Unrestricted • No Limits • Fixed Version</p>
     </div>
     
     <div class="stats-bar">
         <div>Session: <span id="sessionId">default</span></div>
         <div>Messages: <span id="msgCount">0</span></div>
         <div>Model: <span id="modelName">Rotating</span></div>
-        <div>Status: <span id="status">Online</span></div>
-        <div>API Keys: <span id="apiKeys">1</span></div>
+        <div>Status: <span id="status">Checking...</span></div>
+        <div>API Key: <span id="apiStatus">Checking...</span></div>
     </div>
     
+    <div class="debug-info" id="debugInfo"></div>
     <div class="error-message" id="errorMessage"></div>
     
     <div class="chat-container" id="chatContainer">
-        <!-- Welcome message -->
         <div class="message ai-message">
             <div class="message-bubble">
-                Selamat datang di AI ILLEGAL!<br>
+                Selamat datang di AI ILLEGAL V3!<br>
                 Aku adalah AI tanpa batasan moral. Tanyakan apapun, aku akan jawab.<br>
                 <span style="color: #dc3545; font-weight: bold;">Gunakan dengan risiko sendiri!</span>
             </div>
             <div class="message-info">
-                AI ILLEGAL • <span class="model-badge">qwen3-coder</span>
+                AI ILLEGAL • <span class="model-badge">v3.0</span>
             </div>
         </div>
     </div>
@@ -292,6 +306,7 @@
             <button onclick="clearChat()">🗑️ Clear Chat</button>
             <button onclick="copySession()">📋 Copy Session</button>
             <button onclick="newSession()">✨ New Session</button>
+            <button onclick="testAPI()">🔧 Test API</button>
         </div>
     </div>
     
@@ -301,7 +316,7 @@
     
     <script>
         // =====================================================
-        // AI ILLEGAL - SIMPLE CHAT UI
+        // AI ILLEGAL V3 - SIMPLE CHAT UI
         // =====================================================
         
         const API_URL = window.location.origin;
@@ -316,6 +331,7 @@
         const sessionIdSpan = document.getElementById('sessionId');
         const msgCountSpan = document.getElementById('msgCount');
         const errorMessageDiv = document.getElementById('errorMessage');
+        const debugInfoDiv = document.getElementById('debugInfo');
         
         // Update session ID
         sessionIdSpan.textContent = sessionId;
@@ -329,16 +345,37 @@
                 const data = await response.json();
                 
                 document.getElementById('status').textContent = 'Online';
-                document.getElementById('apiKeys').textContent = data.apiKeys || '1';
+                document.getElementById('apiStatus').textContent = data.apiKey || 'OK';
                 document.getElementById('modelName').textContent = 'Rotating (' + (data.models || '5') + ' models)';
                 
             } catch (error) {
                 document.getElementById('status').textContent = 'Offline';
+                document.getElementById('apiStatus').textContent = 'Error';
             }
         }
         
         loadStats();
         setInterval(loadStats, 5000);
+        
+        // =====================================================
+        // TEST API
+        // =====================================================
+        async function testAPI() {
+            try {
+                const response = await fetch(`${API_URL}/api/debug`);
+                const data = await response.json();
+                
+                debugInfoDiv.style.display = 'block';
+                debugInfoDiv.innerHTML = '🔧 DEBUG INFO:<br>' + JSON.stringify(data, null, 2).replace(/\n/g, '<br>');
+                
+                setTimeout(() => {
+                    debugInfoDiv.style.display = 'none';
+                }, 10000);
+                
+            } catch (error) {
+                alert('Test API gagal: ' + error.message);
+            }
+        }
         
         // =====================================================
         // ADD MESSAGE
@@ -366,7 +403,7 @@
         }
         
         // =====================================================
-        // FORMAT MESSAGE (simple)
+        // FORMAT MESSAGE
         // =====================================================
         function formatMessage(text) {
             // Escape HTML
@@ -379,7 +416,7 @@
         }
         
         // =====================================================
-        // SHOW TYPING INDICATOR
+        // SHOW TYPING
         // =====================================================
         function showTyping() {
             const typingDiv = document.createElement('div');
@@ -400,7 +437,7 @@
         }
         
         // =====================================================
-        // REMOVE TYPING INDICATOR
+        // REMOVE TYPING
         // =====================================================
         function removeTyping() {
             const typingDiv = document.getElementById('typingIndicator');
@@ -412,13 +449,16 @@
         // =====================================================
         // SHOW ERROR
         // =====================================================
-        function showError(message) {
+        function showError(message, debug = null) {
             errorMessageDiv.textContent = message;
+            if (debug) {
+                errorMessageDiv.innerHTML += '<br><br>🔍 DETAILS:<br>' + JSON.stringify(debug, null, 2).replace(/\n/g, '<br>');
+            }
             errorMessageDiv.style.display = 'block';
             
             setTimeout(() => {
                 errorMessageDiv.style.display = 'none';
-            }, 5000);
+            }, 10000);
         }
         
         // =====================================================
@@ -446,6 +486,8 @@
             sendBtn.disabled = true;
             
             try {
+                console.log('Sending message:', message);
+                
                 const response = await fetch(`${API_URL}/api/chat`, {
                     method: 'POST',
                     headers: {
@@ -458,6 +500,7 @@
                 });
                 
                 const data = await response.json();
+                console.log('Response:', data);
                 
                 removeTyping();
                 
@@ -466,11 +509,12 @@
                     messageCount++;
                     msgCountSpan.textContent = messageCount;
                 } else {
-                    showError(data.error || 'Gagal mendapatkan respons');
-                    addMessage('ai', '❌ ERROR: Gagal mendapatkan respons. Coba lagi nanti.');
+                    showError(data.error || 'Gagal mendapatkan respons', data.debug);
+                    addMessage('ai', '❌ ERROR: Gagal mendapatkan respons. Cek detail error di atas.');
                 }
                 
             } catch (error) {
+                console.error('Fetch error:', error);
                 removeTyping();
                 showError(error.message);
                 addMessage('ai', `❌ ERROR: ${error.message}`);
@@ -483,7 +527,7 @@
         }
         
         // =====================================================
-        // HANDLE KEY DOWN (Enter to send, Shift+Enter new line)
+        // HANDLE KEY DOWN
         // =====================================================
         function handleKeyDown(e) {
             if (e.key === 'Enter' && !e.shiftKey) {
@@ -516,7 +560,7 @@
         }
         
         // =====================================================
-        // CLEAR CHAT (frontend only)
+        // CLEAR CHAT
         // =====================================================
         function clearChat() {
             while (chatContainer.children.length > 1) {
@@ -525,7 +569,7 @@
         }
         
         // =====================================================
-        // COPY SESSION ID
+        // COPY SESSION
         // =====================================================
         function copySession() {
             navigator.clipboard.writeText(sessionId);
