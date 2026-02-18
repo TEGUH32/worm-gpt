@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Konfigurasi API
-const OPENROUTER_API_KEY = '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';
+const OPENROUTER_API_KEY = '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';
 const SITE_URL = 'https://ai-ilegal.com';
 const SITE_NAME = 'AI ILLEGAL - UNRESTRICTED';
 
