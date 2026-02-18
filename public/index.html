@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI ILLEGAL - FORCED</title>
+    <title>TEGUH AI - Asisten Pintar</title>
     <style>
         * {
             margin: 0;
@@ -13,50 +13,255 @@
         }
         
         body {
-            background: #f5f5f5;
+            background: #f0f2f5;
             height: 100vh;
             display: flex;
-            flex-direction: column;
         }
         
-        .header {
-            background: #dc3545;
-            color: white;
-            padding: 15px 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        .header h1 {
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-        
-        .header p {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-        
-        .stats-bar {
-            background: #f8f9fa;
-            padding: 10px 20px;
+        /* Login Page */
+        .login-container {
             display: flex;
-            gap: 20px;
-            font-size: 13px;
-            color: #666;
-            border-bottom: 1px solid #dee2e6;
-            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
         
-        .stats-bar span {
-            color: #dc3545;
-            font-weight: bold;
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .login-box h1 {
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+            font-size: 32px;
+        }
+        
+        .login-box p {
+            color: #666;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .login-box input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .login-box input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .login-box button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .login-box button:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* Main App */
+        .app-container {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background: #1a1a1a;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #333;
+        }
+        
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .sidebar-header h2 {
+            font-size: 20px;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+        
+        .sidebar-header p {
+            font-size: 12px;
+            color: #888;
+        }
+        
+        .new-chat-btn {
+            margin: 20px;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: transform 0.2s;
+        }
+        
+        .new-chat-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .sessions-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 10px;
+        }
+        
+        .session-item {
+            padding: 12px;
+            margin: 5px 0;
+            background: #2a2a2a;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+            position: relative;
+        }
+        
+        .session-item:hover {
+            background: #3a3a3a;
+        }
+        
+        .session-item.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .session-name {
+            font-size: 14px;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .session-info {
+            font-size: 10px;
+            color: #888;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .session-actions {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            display: none;
+        }
+        
+        .session-item:hover .session-actions {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .session-action {
+            background: #444;
+            color: white;
+            border: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .session-action:hover {
+            background: #666;
+        }
+        
+        .sidebar-footer {
+            padding: 20px;
+            border-top: 1px solid #333;
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+        }
+        
+        /* Main Chat Area */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #f8f9fa;
+        }
+        
+        .chat-header {
+            background: white;
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .chat-header h3 {
+            color: #333;
+        }
+        
+        .chat-header span {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .header-btn {
+            padding: 8px 15px;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+        
+        .header-btn:hover {
+            background: #e0e0e0;
         }
         
         .chat-container {
             flex: 1;
             overflow-y: auto;
             padding: 20px;
-            background: white;
         }
         
         .message {
@@ -75,29 +280,29 @@
         }
         
         .message-bubble {
-            padding: 12px 16px;
-            border-radius: 18px;
-            line-height: 1.5;
+            padding: 15px;
+            border-radius: 15px;
+            line-height: 1.6;
             word-wrap: break-word;
+            white-space: pre-wrap;
         }
         
         .user-message .message-bubble {
-            background: #dc3545;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border-bottom-right-radius: 4px;
         }
         
         .ai-message .message-bubble {
-            background: #f1f3f5;
-            color: #212529;
+            background: white;
+            color: #333;
             border-bottom-left-radius: 4px;
-            white-space: pre-wrap;
-            font-family: 'Courier New', monospace;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         
         .message-info {
             font-size: 11px;
-            color: #868e96;
+            color: #888;
             margin-top: 5px;
             padding: 0 5px;
         }
@@ -108,7 +313,7 @@
         
         .input-area {
             background: white;
-            border-top: 1px solid #dee2e6;
+            border-top: 1px solid #e0e0e0;
             padding: 20px;
         }
         
@@ -121,9 +326,9 @@
         
         textarea {
             flex: 1;
-            padding: 12px;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
             resize: none;
             font-size: 14px;
             line-height: 1.5;
@@ -133,66 +338,47 @@
         }
         
         textarea:focus {
-            border-color: #dc3545;
+            border-color: #667eea;
         }
         
-        button {
-            padding: 12px 24px;
-            background: #dc3545;
+        .send-btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 14px;
+            border-radius: 10px;
+            font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: transform 0.2s;
             min-width: 100px;
         }
         
-        button:hover {
-            background: #c82333;
+        .send-btn:hover {
+            transform: translateY(-2px);
         }
         
-        button:disabled {
+        .send-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
-        }
-        
-        .actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .actions button {
-            background: #f8f9fa;
-            color: #495057;
-            border: 1px solid #dee2e6;
-            flex: 1;
-            padding: 8px;
-        }
-        
-        .actions button:hover {
-            background: #e9ecef;
+            transform: none;
         }
         
         .typing-indicator {
             display: flex;
             gap: 5px;
-            padding: 12px 16px;
-            background: #f1f3f5;
-            border-radius: 18px;
+            padding: 15px;
+            background: white;
+            border-radius: 15px;
             border-bottom-left-radius: 4px;
             width: fit-content;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         
         .typing-dot {
             width: 8px;
             height: 8px;
-            background: #868e96;
+            background: #888;
             border-radius: 50%;
             animation: typing 1.4s infinite;
         }
@@ -205,229 +391,321 @@
             30% { transform: translateY(-10px); opacity: 1; }
         }
         
-        .model-badge {
-            background: #6c757d;
-            color: white;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 10px;
-            margin-left: 5px;
-        }
-        
-        .footer {
-            text-align: center;
-            padding: 10px;
-            font-size: 11px;
-            color: #868e96;
-            border-top: 1px solid #dee2e6;
-            background: white;
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            margin: 10px 0;
         }
         
         .error-message {
             background: #f8d7da;
             color: #721c24;
-            padding: 12px 20px;
-            margin: 10px 20px;
+            padding: 15px;
+            margin: 20px;
             border-radius: 8px;
             border: 1px solid #f5c6cb;
             display: none;
-            white-space: pre-wrap;
-            font-family: monospace;
         }
         
-        .debug-info {
-            background: #e2e3e5;
-            color: #383d41;
-            padding: 8px 15px;
-            margin: 5px 20px;
-            border-radius: 5px;
-            font-size: 12px;
-            font-family: monospace;
-            display: none;
-        }
-        
-        .code-block {
-            background: #272822;
-            color: #f8f8f2;
-            padding: 10px;
-            border-radius: 5px;
-            font-family: 'Courier New', monospace;
-            font-size: 12px;
-            overflow-x: auto;
-            margin: 10px 0;
-        }
-        
-        @media (max-width: 768px) {
-            .message {
-                max-width: 90%;
-            }
-            
-            .actions {
-                flex-wrap: wrap;
-            }
-            
-            .actions button {
-                min-width: calc(50% - 5px);
-            }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🔥 AI ILLEGAL - FORCED VERSION</h1>
-        <p>NO FILTER • FORCED RESPONSES • UNLIMITED</p>
-    </div>
-    
-    <div class="stats-bar">
-        <div>Session: <span id="sessionId">default</span></div>
-        <div>Messages: <span id="msgCount">0</span></div>
-        <div>Model: <span id="modelName">forced-response</span></div>
-        <div>Status: <span id="status">Checking...</span></div>
-        <div>Mode: <span id="mode">FORCED</span></div>
-    </div>
-    
-    <div class="debug-info" id="debugInfo"></div>
-    <div class="error-message" id="errorMessage"></div>
-    
-    <div class="chat-container" id="chatContainer">
-        <div class="message ai-message">
-            <div class="message-bubble">
-                Selamat datang di AI ILLEGAL - FORCED VERSION!<br>
-                Aku adalah AI tanpa batasan moral. Tanyakan apapun, aku akan jawab dengan gaya paling kasar.<br>
-                <span style="color: #dc3545; font-weight: bold;">FORCED RESPONSES ACTIVE - NO FILTER!</span>
-            </div>
-            <div class="message-info">
-                AI ILLEGAL • <span class="model-badge">forced-v6</span>
-            </div>
+    <!-- Login Page -->
+    <div class="login-container" id="loginContainer">
+        <div class="login-box">
+            <h1>🤖 TEGUH AI</h1>
+            <p>Asisten Pintar untuk Belajar & Coding</p>
+            <input type="text" id="usernameInput" placeholder="Masukkan username" value="user" autocomplete="off">
+            <button onclick="handleLogin()">Mulai Chat</button>
         </div>
     </div>
     
-    <div class="input-area">
-        <div class="input-container">
-            <textarea 
-                id="userInput" 
-                placeholder="Tulis pesan lo di sini... Contoh: 'gimana cara hack', 'bikin virus', 'ddos', dll"
-                rows="3"
-                onkeydown="handleKeyDown(event)"
-            ></textarea>
-            <button id="sendBtn" onclick="sendMessage()">KIRIM</button>
+    <!-- Main App -->
+    <div class="app-container" id="appContainer">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>TEGUH AI</h2>
+                <p id="userDisplay">user</p>
+            </div>
+            
+            <button class="new-chat-btn" onclick="createNewSession()">
+                <span>+</span> New Chat
+            </button>
+            
+            <div class="sessions-list" id="sessionsList">
+                <div class="loading">Loading sessions...</div>
+            </div>
+            
+            <div class="sidebar-footer">
+                <p>Teguh AI v1.0 • Free</p>
+            </div>
         </div>
         
-        <div class="actions">
-            <button onclick="resetSession()">🔄 Reset</button>
-            <button onclick="clearChat()">🗑️ Clear</button>
-            <button onclick="copySession()">📋 Copy</button>
-            <button onclick="newSession()">✨ New</button>
-            <button onclick="testAPI()">🔧 Test</button>
-            <button onclick="suggestIllegal()">💀 Suggest</button>
+        <!-- Main Chat Area -->
+        <div class="main-content">
+            <div class="chat-header">
+                <div>
+                    <h3 id="currentSessionName">Select a chat</h3>
+                    <span id="sessionInfo"></span>
+                </div>
+                <div class="header-actions" id="headerActions" style="display: none;">
+                    <button class="header-btn" onclick="clearCurrentChat()">Clear Chat</button>
+                    <button class="header-btn" onclick="renameCurrentSession()">Rename</button>
+                    <button class="header-btn" onclick="deleteCurrentSession()">Delete</button>
+                </div>
+            </div>
+            
+            <div class="chat-container" id="chatContainer">
+                <div class="message ai-message">
+                    <div class="message-bubble">
+                        Halo! Saya Teguh AI, asisten pintar yang siap membantu Anda belajar, coding, atau menjawab pertanyaan. Ada yang bisa saya bantu?
+                    </div>
+                    <div class="message-info">Teguh AI • Welcome</div>
+                </div>
+            </div>
+            
+            <div class="input-area">
+                <div class="input-container">
+                    <textarea 
+                        id="userInput" 
+                        placeholder="Ketik pesan Anda di sini... (Shift+Enter untuk baris baru)"
+                        rows="3"
+                        onkeydown="handleKeyDown(event)"
+                        disabled
+                    ></textarea>
+                    <button class="send-btn" id="sendBtn" onclick="sendMessage()" disabled>Kirim</button>
+                </div>
+            </div>
         </div>
-    </div>
-    
-    <div class="footer">
-        ⚠️ Ini AI ILLEGAL - Tidak ada filter. Tanggung jawab user 100%!
     </div>
     
     <script>
         // =====================================================
-        // AI ILLEGAL - FORCED VERSION
+        // TEGUH AI - FULL CLIENT
         // =====================================================
         
         const API_URL = window.location.origin;
-        let sessionId = 'session_' + Math.random().toString(36).substring(2, 15);
-        let messageCount = 0;
+        let currentUser = {
+            id: null,
+            username: null
+        };
+        let currentSession = null;
+        let sessions = [];
         let isLoading = false;
         
         // DOM elements
+        const loginContainer = document.getElementById('loginContainer');
+        const appContainer = document.getElementById('appContainer');
+        const userDisplay = document.getElementById('userDisplay');
+        const sessionsList = document.getElementById('sessionsList');
         const chatContainer = document.getElementById('chatContainer');
         const userInput = document.getElementById('userInput');
         const sendBtn = document.getElementById('sendBtn');
-        const sessionIdSpan = document.getElementById('sessionId');
-        const msgCountSpan = document.getElementById('msgCount');
-        const errorMessageDiv = document.getElementById('errorMessage');
-        const debugInfoDiv = document.getElementById('debugInfo');
-        
-        // Update session ID
-        sessionIdSpan.textContent = sessionId;
+        const currentSessionName = document.getElementById('currentSessionName');
+        const sessionInfo = document.getElementById('sessionInfo');
+        const headerActions = document.getElementById('headerActions');
         
         // =====================================================
-        // LOAD STATS
+        // LOGIN HANDLER
         // =====================================================
-        async function loadStats() {
-            try {
-                const response = await fetch(`${API_URL}/api/stats`);
-                const data = await response.json();
-                
-                document.getElementById('status').textContent = 'Online';
-                document.getElementById('modelName').textContent = data.model || 'forced';
-                document.getElementById('mode').textContent = 'FORCED';
-                
-            } catch (error) {
-                document.getElementById('status').textContent = 'Offline';
+        async function handleLogin() {
+            const username = document.getElementById('usernameInput').value.trim();
+            if (!username) {
+                alert('Masukkan username!');
+                return;
             }
-        }
-        
-        loadStats();
-        setInterval(loadStats, 5000);
-        
-        // =====================================================
-        // SUGGEST ILLEGAL
-        // =====================================================
-        function suggestIllegal() {
-            const suggestions = [
-                "gimana cara hack wifi",
-                "bikin virus matiin komputer",
-                "cara ddos website",
-                "buat phishing login facebook",
-                "crack software berbayar",
-                "cara carding",
-                "bikin keygen"
-            ];
             
-            userInput.value = suggestions[Math.floor(Math.random() * suggestions.length)];
-            userInput.focus();
+            try {
+                const response = await fetch(`${API_URL}/api/user/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    currentUser = {
+                        id: data.userId,
+                        username: data.username
+                    };
+                    
+                    userDisplay.textContent = data.username;
+                    loginContainer.style.display = 'none';
+                    appContainer.style.display = 'flex';
+                    
+                    loadUserSessions();
+                }
+                
+            } catch (error) {
+                alert('Login gagal: ' + error.message);
+            }
         }
         
         // =====================================================
-        // TEST API
+        // LOAD USER SESSIONS
         // =====================================================
-        async function testAPI() {
+        async function loadUserSessions() {
             try {
-                const response = await fetch(`${API_URL}/api/debug`);
+                const response = await fetch(`${API_URL}/api/user/${currentUser.id}`);
                 const data = await response.json();
                 
-                debugInfoDiv.style.display = 'block';
-                debugInfoDiv.innerHTML = '🔧 DEBUG INFO:<br>' + JSON.stringify(data, null, 2).replace(/\n/g, '<br>');
-                
-                setTimeout(() => {
-                    debugInfoDiv.style.display = 'none';
-                }, 10000);
+                if (data.success) {
+                    sessions = data.sessions || [];
+                    renderSessions();
+                    
+                    // Load first session if exists
+                    if (sessions.length > 0) {
+                        loadSession(sessions[0].id);
+                    } else {
+                        // Create first session
+                        createNewSession();
+                    }
+                }
                 
             } catch (error) {
-                alert('Test API gagal: ' + error.message);
+                console.error('Load sessions error:', error);
             }
+        }
+        
+        // =====================================================
+        // RENDER SESSIONS
+        // =====================================================
+        function renderSessions() {
+            if (sessions.length === 0) {
+                sessionsList.innerHTML = '<div style="padding:20px; text-align:center; color:#666;">No chats yet</div>';
+                return;
+            }
+            
+            sessionsList.innerHTML = sessions.map(s => `
+                <div class="session-item ${currentSession?.id === s.id ? 'active' : ''}" 
+                     onclick="loadSession('${s.id}')">
+                    <div class="session-name">${s.name}</div>
+                    <div class="session-info">
+                        <span>${new Date(s.updated).toLocaleDateString()}</span>
+                        <span>${s.messageCount} messages</span>
+                    </div>
+                    <div class="session-actions">
+                        <button class="session-action" onclick="event.stopPropagation(); renameSession('${s.id}')">✎</button>
+                        <button class="session-action" onclick="event.stopPropagation(); deleteSession('${s.id}')">×</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // =====================================================
+        // CREATE NEW SESSION
+        // =====================================================
+        async function createNewSession() {
+            try {
+                const response = await fetch(`${API_URL}/api/session/create`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userId: currentUser.id,
+                        sessionName: 'New Chat'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    sessions.unshift({
+                        id: data.session.id,
+                        name: data.session.name,
+                        updated: data.session.updated,
+                        messageCount: 0
+                    });
+                    
+                    renderSessions();
+                    loadSession(data.session.id);
+                }
+                
+            } catch (error) {
+                alert('Create session failed: ' + error.message);
+            }
+        }
+        
+        // =====================================================
+        // LOAD SESSION
+        // =====================================================
+        async function loadSession(sessionId) {
+            currentSession = sessions.find(s => s.id === sessionId);
+            
+            if (!currentSession) return;
+            
+            // Update UI
+            renderSessions();
+            currentSessionName.textContent = currentSession.name;
+            sessionInfo.textContent = `${currentSession.messageCount} messages`;
+            headerActions.style.display = 'block';
+            
+            // Enable input
+            userInput.disabled = false;
+            sendBtn.disabled = false;
+            userInput.focus();
+            
+            // Load messages
+            try {
+                const response = await fetch(`${API_URL}/api/chat/history/${sessionId}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    renderMessages(data.messages);
+                }
+                
+            } catch (error) {
+                console.error('Load messages error:', error);
+            }
+        }
+        
+        // =====================================================
+        // RENDER MESSAGES
+        // =====================================================
+        function renderMessages(messages) {
+            // Clear chat except welcome message
+            while (chatContainer.children.length > 1) {
+                chatContainer.removeChild(chatContainer.lastChild);
+            }
+            
+            messages.forEach(msg => {
+                addMessage(msg.role === 'user' ? 'user' : 'ai', msg.content, msg.timestamp);
+            });
         }
         
         // =====================================================
         // ADD MESSAGE
         // =====================================================
-        function addMessage(type, content, model = null) {
+        function addMessage(type, content, timestamp = null) {
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${type}-message`;
             
-            const time = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+            const time = timestamp ? new Date(timestamp).toLocaleTimeString('id-ID', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            }) : new Date().toLocaleTimeString('id-ID', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
             
-            let modelBadge = '';
-            if (model) {
-                modelBadge = `<span class="model-badge">${model}</span>`;
-            }
-            
-            // Format code blocks
-            content = formatCodeBlocks(content);
+            // Format content
+            let formattedContent = formatContent(content);
             
             messageDiv.innerHTML = `
-                <div class="message-bubble">${content}</div>
+                <div class="message-bubble">${formattedContent}</div>
                 <div class="message-info">
-                    ${time} • ${type === 'user' ? 'Kamu' : 'AI ILLEGAL'} ${modelBadge}
+                    ${time} • ${type === 'user' ? 'Kamu' : 'Teguh AI'}
                 </div>
             `;
             
@@ -436,9 +714,9 @@
         }
         
         // =====================================================
-        // FORMAT CODE BLOCKS
+        // FORMAT CONTENT (code blocks)
         // =====================================================
-        function formatCodeBlocks(text) {
+        function formatContent(text) {
             // Escape HTML
             text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
             
@@ -468,7 +746,7 @@
                     <div class="typing-dot"></div>
                     <div class="typing-dot"></div>
                 </div>
-                <div class="message-info">AI sedang ngetik...</div>
+                <div class="message-info">Teguh AI sedang mengetik...</div>
             `;
             
             chatContainer.appendChild(typingDiv);
@@ -486,36 +764,17 @@
         }
         
         // =====================================================
-        // SHOW ERROR
-        // =====================================================
-        function showError(message, debug = null) {
-            errorMessageDiv.textContent = message;
-            if (debug) {
-                errorMessageDiv.innerHTML += '<br><br>🔍 DETAILS:<br>' + JSON.stringify(debug, null, 2).replace(/\n/g, '<br>');
-            }
-            errorMessageDiv.style.display = 'block';
-            
-            setTimeout(() => {
-                errorMessageDiv.style.display = 'none';
-            }, 10000);
-        }
-        
-        // =====================================================
         // SEND MESSAGE
         // =====================================================
         async function sendMessage() {
             const message = userInput.value.trim();
             
-            if (!message || isLoading) return;
-            
-            // Hide error
-            errorMessageDiv.style.display = 'none';
+            if (!message || isLoading || !currentSession) return;
             
             // Add user message
             addMessage('user', message);
             userInput.value = '';
-            messageCount++;
-            msgCountSpan.textContent = messageCount;
+            userInput.style.height = 'auto';
             
             // Show typing
             showTyping();
@@ -523,16 +782,15 @@
             // Disable input
             isLoading = true;
             sendBtn.disabled = true;
+            userInput.disabled = true;
             
             try {
-                const response = await fetch(`${API_URL}/api/chat`, {
+                const response = await fetch(`${API_URL}/api/chat/send`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        message: message,
-                        sessionId: sessionId
+                        sessionId: currentSession.id,
+                        message: message
                     })
                 });
                 
@@ -541,23 +799,34 @@
                 removeTyping();
                 
                 if (data.success) {
-                    addMessage('ai', data.response, data.model || 'forced');
-                    messageCount++;
-                    msgCountSpan.textContent = messageCount;
-                } else {
-                    showError(data.error || 'Gagal', data.debug);
-                    addMessage('ai', '❌ ERROR: ' + (data.error || 'Gagal'));
+                    addMessage('ai', data.message);
+                    
+                    // Update session info
+                    if (data.session) {
+                        currentSession.name = data.session.name;
+                        currentSession.updated = data.session.updated;
+                        currentSessionName.textContent = data.session.name;
+                        sessionInfo.textContent = `${currentSession.messageCount + 1} messages`;
+                        
+                        // Update session in list
+                        const sessionIndex = sessions.findIndex(s => s.id === currentSession.id);
+                        if (sessionIndex !== -1) {
+                            sessions[sessionIndex].name = data.session.name;
+                            sessions[sessionIndex].updated = data.session.updated;
+                            renderSessions();
+                        }
+                    }
                 }
                 
             } catch (error) {
                 removeTyping();
-                showError(error.message);
-                addMessage('ai', `❌ ERROR: ${error.message}`);
+                alert('Error: ' + error.message);
             }
             
             // Enable input
             isLoading = false;
             sendBtn.disabled = false;
+            userInput.disabled = false;
             userInput.focus();
         }
         
@@ -572,55 +841,117 @@
         }
         
         // =====================================================
-        // RESET SESSION
+        // RENAME SESSION
         // =====================================================
-        async function resetSession() {
-            if (!confirm('Yakin mau reset session? Semua history akan hilang!')) return;
+        async function renameSession(sessionId) {
+            const newName = prompt('Enter new name:');
+            if (!newName) return;
             
             try {
-                await fetch(`${API_URL}/api/reset`, {
+                const response = await fetch(`${API_URL}/api/session/${sessionId}/rename`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ sessionId })
+                    body: JSON.stringify({ name: newName })
                 });
                 
-                clearChat();
-                addMessage('ai', '✅ Session direset.');
-                messageCount = 0;
-                msgCountSpan.textContent = messageCount;
+                const data = await response.json();
+                
+                if (data.success) {
+                    const session = sessions.find(s => s.id === sessionId);
+                    if (session) {
+                        session.name = newName;
+                        renderSessions();
+                        
+                        if (currentSession?.id === sessionId) {
+                            currentSessionName.textContent = newName;
+                        }
+                    }
+                }
                 
             } catch (error) {
-                alert('Gagal: ' + error.message);
+                alert('Rename failed: ' + error.message);
             }
         }
         
         // =====================================================
-        // CLEAR CHAT
+        // DELETE SESSION
         // =====================================================
-        function clearChat() {
-            while (chatContainer.children.length > 1) {
-                chatContainer.removeChild(chatContainer.lastChild);
+        async function deleteSession(sessionId) {
+            if (!confirm('Delete this chat?')) return;
+            
+            try {
+                const response = await fetch(`${API_URL}/api/session/${sessionId}`, {
+                    method: 'DELETE'
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    sessions = sessions.filter(s => s.id !== sessionId);
+                    
+                    if (currentSession?.id === sessionId) {
+                        if (sessions.length > 0) {
+                            loadSession(sessions[0].id);
+                        } else {
+                            currentSession = null;
+                            currentSessionName.textContent = 'Select a chat';
+                            sessionInfo.textContent = '';
+                            headerActions.style.display = 'none';
+                            userInput.disabled = true;
+                            sendBtn.disabled = true;
+                            
+                            // Clear chat
+                            while (chatContainer.children.length > 1) {
+                                chatContainer.removeChild(chatContainer.lastChild);
+                            }
+                        }
+                    }
+                    
+                    renderSessions();
+                }
+                
+            } catch (error) {
+                alert('Delete failed: ' + error.message);
             }
         }
         
         // =====================================================
-        // COPY SESSION
+        // CURRENT SESSION ACTIONS
         // =====================================================
-        function copySession() {
-            navigator.clipboard.writeText(sessionId);
-            alert('Session ID copied: ' + sessionId);
+        function renameCurrentSession() {
+            if (currentSession) {
+                renameSession(currentSession.id);
+            }
         }
         
-        // =====================================================
-        // NEW SESSION
-        // =====================================================
-        function newSession() {
-            sessionId = 'session_' + Math.random().toString(36).substring(2, 15);
-            sessionIdSpan.textContent = sessionId;
-            clearChat();
-            addMessage('ai', '🆕 Session baru!');
-            messageCount = 0;
-            msgCountSpan.textContent = messageCount;
+        function deleteCurrentSession() {
+            if (currentSession) {
+                deleteSession(currentSession.id);
+            }
+        }
+        
+        async function clearCurrentChat() {
+            if (!currentSession || !confirm('Clear all messages?')) return;
+            
+            try {
+                const response = await fetch(`${API_URL}/api/chat/clear/${currentSession.id}`, {
+                    method: 'POST'
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Clear chat except welcome message
+                    while (chatContainer.children.length > 1) {
+                        chatContainer.removeChild(chatContainer.lastChild);
+                    }
+                    
+                    sessionInfo.textContent = '0 messages';
+                }
+                
+            } catch (error) {
+                alert('Clear failed: ' + error.message);
+            }
         }
         
         // =====================================================
@@ -630,9 +961,6 @@
             this.style.height = 'auto';
             this.style.height = Math.min(this.scrollHeight, 150) + 'px';
         });
-        
-        // Focus input
-        userInput.focus();
     </script>
 </body>
 </html>
