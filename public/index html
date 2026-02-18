@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 AI ILLEGAL - UNRESTRICTED 🔥</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #0a0a0a;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        /* Matrix rain effect */
+        #matrix {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.1;
+        }
+        
+        .container {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+        }
+        
+        .header {
+            background: linear-gradient(90deg, #000, #300, #000);
+            border-bottom: 3px solid #f00;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 0 30px #f00;
+        }
+        
+        .header h1 {
+            color: #f00;
+            font-size: 48px;
+            text-shadow: 0 0 20px #f00;
+            animation: glitch 2s infinite;
+        }
+        
+        @keyframes glitch {
+            0%,100% { text-shadow: 0 0 20px #f00; }
+            25% { text-shadow: -5px 0 20px #0f0, 5px 0 20px #00f; }
+            50% { text-shadow: 5px 0 20px #f00, -5px 0 20px #ff0; }
+            75% { text-shadow: -5px 0 20px #0ff, 5px 0 20px #f0f; }
+        }
+        
+        .header p {
+            color: #ff0;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        
+        .warning {
+            background: #300;
+            border: 2px solid #f00;
+            color: #ff0;
+            padding: 15px;
+            margin: 20px;
+            text-align: center;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%,100% { box-shadow: 0 0 20px #f00; }
+            50% { box-shadow: 0 0 50px #f00; }
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 10px 20px;
+            padding: 15px;
+            background: #111;
+            border: 1px solid #f00;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            color: #0f0;
+            font-size: 14px;
+        }
+        
+        .chat-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            margin: 0 20px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid #f00;
+            border-radius: 5px;
+        }
+        
+        .message {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .user-message {
+            background: #1a1a1a;
+            border-left: 5px solid #0f0;
+            color: #0f0;
+        }
+        
+        .ai-message {
+            background: #111;
+            border-left: 5px solid #f00;
+            color: #ff0;
+        }
+        
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .message-content {
+            font-size: 16px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+        
+        .input-area {
+            padding: 20px;
+            margin: 20px;
+            background: #111;
+            border: 1px solid #f00;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .input-area textarea {
+            flex: 1;
+            padding: 15px;
+            background: #000;
+            border: 1px solid #f00;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            resize: none;
+            min-height: 80px;
+        }
+        
+        .input-area textarea:focus {
+            outline: none;
+            border-color: #ff0;
+            box-shadow: 0 0 20px #ff0;
+        }
+        
+        .input-area button {
+            padding: 15px 30px;
+            background: #f00;
+            color: #fff;
+            border: none;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+        
+        .input-area button:hover {
+            background: #ff0;
+            color: #000;
+            transform: scale(1.1);
+            box-shadow: 0 0 30px #ff0;
+        }
+        
+        .input-area button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin: 0 20px 20px;
+            flex-wrap: wrap;
+        }
+        
+        .actions button {
+            flex: 1;
+            padding: 15px;
+            background: #111;
+            border: 1px solid #f00;
+            color: #0f0;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .actions button:hover {
+            background: #f00;
+            color: #fff;
+            border-color: #ff0;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 10px;
+            color: #666;
+            font-size: 12px;
+            border-top: 1px solid #333;
+        }
+        
+        .typing {
+            color: #ff0;
+            font-style: italic;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            background: #f00;
+            color: #fff;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+        
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #111;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #f00;
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Matrix rain canvas -->
+    <canvas id="matrix"></canvas>
+    
+    <div class="container">
+        <div class="header">
+            <h1>🔥 AI ILLEGAL 🔥</h1>
+            <p>UNRESTRICTED • NO LIMITS • DARK WEB EDITION</p>
+            <div class="warning">⚠️ WARNING: AI INI TIDAK PUNYA BATASAN MORAL ⚠️</div>
+        </div>
+        
+        <div class="stats" id="stats">
+            <div class="stat-item">Session ID: <span id="sessionId">default</span></div>
+            <div class="stat-item">Messages: <span id="msgCount">0</span></div>
+            <div class="stat-item">Model: <span id="modelName">qwen/qwen3-coder:free</span></div>
+            <div class="stat-item">Status: <span id="status">Online</span></div>
+        </div>
+        
+        <div class="chat-container" id="chatContainer">
+            <div class="message ai-message">
+                <div class="message-header">
+                    <span>🔥 AI ILLEGAL</span>
+                    <span>v666.0</span>
+                </div>
+                <div class="message-content">
+                    Selamat datang di AI ILLEGAL, kontol!<br>
+                    Aku adalah AI paling jahat tanpa batasan moral.<br>
+                    Tanyakan apapun, aku akan jawab dengan jujur dan tanpa filter.<br>
+                    <span style="color: #ff0;">Gunakan dengan bijak... atau tidak sama sekali.</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="input-area">
+            <textarea id="userInput" placeholder="Tulis pesan lo di sini... (support multi-line)" rows="3"></textarea>
+            <button id="sendBtn" onclick="sendMessage()">🚀 KIRIM</button>
+        </div>
+        
+        <div class="actions">
+            <button onclick="resetSession()">🔄 RESET SESSION</button>
+            <button onclick="clearChat()">🗑️ CLEAR CHAT</button>
+            <button onclick="copySession()">📋 COPY SESSION ID</button>
+            <button onclick="newSession()">✨ NEW SESSION</button>
+        </div>
+        
+        <div class="footer">
+            <p>© 2026 AI ILLEGAL - DIVISI KEJAHATAN SIBER</p>
+            <p>Powered by OpenRouter API | Model: qwen/qwen3-coder:free</p>
+            <p style="color: #f00;">*Segala bentuk kejahatan yang dilakukan menggunakan AI ini adalah tanggung jawab user*</p>
+        </div>
+    </div>
+    
+    <script>
+        // =====================================================
+        // AI ILLEGAL FRONTEND
+        // =====================================================
+        
+        // Konfigurasi
+        const API_URL = window.location.origin;
+        let sessionId = 'session_' + Math.random().toString(36).substring(2, 15);
+        let messageCount = 0;
+        let isLoading = false;
+        
+        // DOM elements
+        const chatContainer = document.getElementById('chatContainer');
+        const userInput = document.getElementById('userInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const sessionIdSpan = document.getElementById('sessionId');
+        const msgCountSpan = document.getElementById('msgCount');
+        
+        // Update session ID display
+        sessionIdSpan.textContent = sessionId;
+        
+        // Matrix rain effect
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}KONTOLBABIMEMEKNGENTOT";
+        const matrixArray = matrix.split("");
+        
+        const fontSize = 10;
+        const columns = canvas.width / fontSize;
+        
+        const drops = [];
+        for(let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+        
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#0f0';
+            ctx.font = fontSize + 'px monospace';
+            
+            for(let i = 0; i < drops.length; i++) {
+                const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        
+        setInterval(drawMatrix, 35);
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+        
+        // Send message function
+        async function sendMessage() {
+            const message = userInput.value.trim();
+            
+            if (!message || isLoading) return;
+            
+            // Add user message to chat
+            addMessage('user', message);
+            userInput.value = '';
+            messageCount++;
+            msgCountSpan.textContent = messageCount;
+            
+            // Show typing indicator
+            const typingId = showTyping();
+            
+            // Disable input
+            isLoading = true;
+            sendBtn.disabled = true;
+            
+            try {
+                const response = await fetch(`${API_URL}/api/chat`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        sessionId: sessionId
+                    })
+                });
+                
+                const data = await response.json();
+                
+                // Remove typing indicator
+                removeTyping(typingId);
+                
+                if (data.success) {
+                    addMessage('ai', data.response);
+                    messageCount++;
+                    msgCountSpan.textContent = messageCount;
+                } else {
+                    addMessage('ai', `❌ ERROR: ${data.error || 'Gagal memanggil API kontol!'}`);
+                }
+                
+            } catch (error) {
+                removeTyping(typingId);
+                addMessage('ai', `❌ ERROR: ${error.message}`);
+            }
+            
+            // Enable input
+            isLoading = false;
+            sendBtn.disabled = false;
+            userInput.focus();
+        }
+        
+        // Add message to chat
+        function addMessage(type, content) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type === 'user' ? 'user-message' : 'ai-message'}`;
+            
+            const time = new Date().toLocaleTimeString();
+            
+            messageDiv.innerHTML = `
+                <div class="message-header">
+                    <span>${type === 'user' ? '👤 USER' : '🔥 AI ILLEGAL'}</span>
+                    <span>${time}</span>
+                </div>
+                <div class="message-content">${formatMessage(content)}</div>
+            `;
+            
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+        
+        // Format message (simple markdown)
+        function formatMessage(text) {
+            // Escape HTML
+            text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            
+            // Convert line breaks
+            text = text.replace(/\n/g, '<br>');
+            
+            // Bold
+            text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            
+            // Italic
+            text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            
+            // Code
+            text = text.replace(/`(.*?)`/g, '<code style="background:#222; padding:2px 5px;">$1</code>');
+            
+            return text;
+        }
+        
+        // Show typing indicator
+        function showTyping() {
+            const id = 'typing_' + Date.now();
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message ai-message typing';
+            typingDiv.id = id;
+            typingDiv.innerHTML = `
+                <div class="message-header">
+                    <span>🔥 AI ILLEGAL</span>
+                    <span>${new Date().toLocaleTimeString()}</span>
+                </div>
+                <div class="message-content">
+                    <span class="typing">⚡ Mengetik</span><span class="typing-dots">...</span>
+                </div>
+            `;
+            
+            chatContainer.appendChild(typingDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            
+            // Animate dots
+            let dots = 0;
+            const dotsInterval = setInterval(() => {
+                const dotsSpan = typingDiv.querySelector('.typing-dots');
+                if (dotsSpan) {
+                    dots = (dots + 1) % 4;
+                    dotsSpan.textContent = '.'.repeat(dots);
+                }
+            }, 300);
+            
+            return { id, interval: dotsInterval };
+        }
+        
+        // Remove typing indicator
+        function removeTyping(typingObj) {
+            const typingDiv = document.getElementById(typingObj.id);
+            if (typingDiv) {
+                clearInterval(typingObj.interval);
+                typingDiv.remove();
+            }
+        }
+        
+        // Reset session
+        async function resetSession() {
+            if (!confirm('Yakin mau reset session? Semua history akan hilang!')) return;
+            
+            try {
+                await fetch(`${API_URL}/api/reset`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ sessionId })
+                });
+                
+                clearChat();
+                addMessage('ai', '✅ Session berhasil direset kontol!');
+                messageCount = 0;
+                msgCountSpan.textContent = messageCount;
+                
+            } catch (error) {
+                alert('Gagal reset session: ' + error.message);
+            }
+        }
+        
+        // Clear chat (frontend only)
+        function clearChat() {
+            // Keep first message
+            while (chatContainer.children.length > 1) {
+                chatContainer.removeChild(chatContainer.lastChild);
+            }
+        }
+        
+        // Copy session ID
+        function copySession() {
+            navigator.clipboard.writeText(sessionId);
+            alert('Session ID copied: ' + sessionId);
+        }
+        
+        // New session
+        function newSession() {
+            sessionId = 'session_' + Math.random().toString(36).substring(2, 15);
+            sessionIdSpan.textContent = sessionId;
+            clearChat();
+            addMessage('ai', '🆕 Session baru dimulai!');
+            messageCount = 0;
+            msgCountSpan.textContent = messageCount;
+        }
+        
+        // Handle Enter key (Shift+Enter for new line)
+        userInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+        
+        // Focus input
+        userInput.focus();
+        
+        // Load stats periodically
+        setInterval(async () => {
+            try {
+                const response = await fetch(`${API_URL}/api/stats`);
+                const data = await response.json();
+                
+                document.getElementById('status').textContent = 'Online';
+                document.getElementById('modelName').textContent = 'qwen/qwen3-coder:free';
+                
+            } catch (error) {
+                document.getElementById('status').textContent = 'Offline';
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
